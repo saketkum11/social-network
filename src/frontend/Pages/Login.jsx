@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { login } from "./Slice/authSlice";
+
+import { useLogin } from "../Hooks/useLogin";
+import { useTitle } from "../services";
 const Login = () => {
+  useTitle("Login");
   const [formData, setFormData] = useState({
     username: "",
     password: "",
   });
+  const { login } = useLogin();
 
   const { username, password } = formData;
 
@@ -22,16 +26,16 @@ const Login = () => {
       username: data.username,
       password: data.password,
     });
-    dispatch(login(data));
+    login(data);
   };
 
   const handleSubmit = () => {
-    dispatch(login(formData));
+    login(formData);
   };
 
   return (
-    <section className=" m-auto w-1/4 mt-24">
-      <div className=" p-8 text-white border-cyan-400 border-2 rounded-lg text-sm">
+    <section className=" m-auto w-full max-w-sm  mt-24">
+      <div className=" p-8  text-white border-cyan-400 border-2 rounded-lg text-sm">
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -54,7 +58,7 @@ const Login = () => {
               required
               value={username}
               placeholder="eg.adam@gmail.com"
-              className=" border-cyan-800 border-2 p-2 rounded-md border-opacity-50 text-black"
+              className="  focus:border-cyan-800 border-2 border-solid p-2 rounded-md  bg-zinc-900"
             />
           </div>
           <div className="flex flex-col gap-2 my-2  ">
@@ -69,7 +73,7 @@ const Login = () => {
               name="password"
               value={password}
               placeholder="eg.adgj180019"
-              className=" border-cyan-800 border-2 p-2 rounded-md border-opacity-50 text-black"
+              className="  focus:border-cyan-800 border-2 border-solid p-2 rounded-md  bg-zinc-900"
             />
           </div>
           <button
@@ -88,7 +92,7 @@ const Login = () => {
           >
             Login as Guest
           </button>
-          <NavLink to="/">Don't Have Account ?</NavLink>
+          <NavLink to="/signup">Don't Have Account ?</NavLink>
         </div>
       </div>
     </section>

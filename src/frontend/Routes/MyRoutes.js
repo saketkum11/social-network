@@ -4,16 +4,15 @@ import {
   createRoutesFromElements,
   RouterProvider,
 } from "react-router-dom";
-import { Home } from "../Home";
-import { Login } from "../Login";
+import { Feed, Login, SignUp } from "../services";
 
 const MyRoutes = () => {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route>
-        <Route path="/home" element={<Home />} />
+        <Route path="/" element={<Feed />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Home />} />
+        <Route path="/signup" element={<SignUp />} />
       </Route>
     )
   );

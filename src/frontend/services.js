@@ -1,5 +1,8 @@
-import { Login } from "./Login";
+import { Login } from "./Pages/Login";
+import { SignUp } from "./Pages/SignUp";
+import { Feed } from "./Pages/Feed";
 import { MyRoutes } from "./Routes/MyRoutes";
-import { Home } from "./Home";
-
-export { Login, MyRoutes, Home };
+import { RequireAuth } from "./Routes/RequireAuth";
+// hoook
+import { useTitle } from "./Hooks/useTitle";
+export { Login, SignUp, MyRoutes, useTitle, RequireAuth, Feed };
