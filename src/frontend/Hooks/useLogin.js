@@ -1,6 +1,9 @@
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { authUser, getToken } from "../Slice/authSlice";
 
 const useLogin = () => {
+  const dispatch = useDispatch();
   const login = async ({ username, password }) => {
     try {
       const {
@@ -11,7 +14,8 @@ const useLogin = () => {
       });
       localStorage.setItem("user", JSON.stringify(foundUser));
       localStorage.setItem("token", encodedToken);
-      console.log(foundUser, encodedToken);
+      dispatch(authUser(foundUser));
+      dispatch(getToken(encodedToken));
     } catch (error) {
       console.log(error);
     }

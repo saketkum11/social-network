@@ -25,8 +25,8 @@ const SignUp = () => {
     signupForm(formData);
   };
   return (
-    <section className=" m-auto w-full max-w-sm  mt-24">
-      <div className=" p-8  text-white border-cyan-400 border-2 rounded-lg text-sm">
+    <section className=" m-auto w-full max-w-sm text-xs mt-24">
+      <div className=" p-8  text-white border-cyan-400 border-2 rounded-lg ">
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -34,7 +34,7 @@ const SignUp = () => {
           }}
         >
           <div>
-            <span className="text-2xl text-cyan-500 font-bold">SignUp</span>
+            <span className=" text-cyan-500 font-bold">SignUp</span>
           </div>
           <div className="flex flex-col gap-3 my-2">
             <label htmlFor="firstName" className="flex">
@@ -94,7 +94,7 @@ const SignUp = () => {
           </div>
           <button
             type="submit"
-            className="w-full p-1 flex justify-center bg-cyan-800 text-white text-lg items-center rounded-lg my-5"
+            className="w-full p-1 flex justify-center bg-cyan-800 text-white  items-center rounded-lg my-5"
           >
             Create Account
           </button>

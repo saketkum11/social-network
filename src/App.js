@@ -1,8 +1,9 @@
 import { ToastContainer } from "react-toastify";
-import { MyRoutes } from "./frontend/services";
+import { Header, MyRoutes } from "./frontend/services";
 function App() {
   return (
-    <div className="flex">
+    <div>
+      <Header />
       <MyRoutes />
       <ToastContainer />
     </div>

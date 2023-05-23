@@ -34,8 +34,8 @@ const Login = () => {
   };
 
   return (
-    <section className=" m-auto w-full max-w-sm  mt-24">
-      <div className=" p-8  text-white border-cyan-400 border-2 rounded-lg text-sm">
+    <section className=" m-auto w-full max-w-sm text-xs mt-24">
+      <div className=" p-8  text-white border-cyan-400 border-2 rounded-3xl ">
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -43,7 +43,7 @@ const Login = () => {
           }}
         >
           <div>
-            <span className="text-2xl text-cyan-400 font-bold">Login</span>
+            <span className=" text-cyan-400 font-bold">Login</span>
           </div>
 
           <div className="flex flex-col gap-2 my-2 ">
@@ -78,7 +78,7 @@ const Login = () => {
           </div>
           <button
             type="submit"
-            className="w-full p-1 flex justify-center rounded-md bg-cyan-800 text-white text-lg items-center my-5"
+            className="w-full p-1 flex justify-center rounded-md bg-cyan-800 text-white  items-center my-5"
           >
             Login
           </button>
@@ -88,7 +88,7 @@ const Login = () => {
             onClick={() => {
               guestLogin({ username: "saket123", password: "saket147" });
             }}
-            className="w-full p-1 flex justify-center rounded-md border-gray-300  border-2 text-gray-400 text-lg items-center my-5"
+            className="w-full p-1 flex justify-center rounded-md border-gray-300  border-2 text-gray-400  items-center my-5"
           >
             Login as Guest
           </button>

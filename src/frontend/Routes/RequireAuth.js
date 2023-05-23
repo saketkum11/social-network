@@ -8,7 +8,7 @@ const RequireAuth = ({ children }) => {
   return token ? (
     children
   ) : (
-    <Navigate to="/home" state={{ from: location }} replace />
+    <Navigate to="/" state={{ from: location }} replace />
   );
 };
 export { RequireAuth };
