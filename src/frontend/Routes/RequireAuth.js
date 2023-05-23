@@ -3,7 +3,7 @@ import { Navigate, useLocation } from "react-router-dom";
 
 const RequireAuth = ({ children }) => {
   const location = useLocation();
-  const { token, user } = useSelector((store) => store.auth);
+  const { token } = useSelector((store) => store.auth);
 
   return token ? (
     children

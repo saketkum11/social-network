@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { signUpUser } from "../Slice/authSlice";
 import { useLogin } from "../Hooks/useLogin";
 import { useTitle } from "../services";
 const SignUp = () => {
@@ -11,7 +9,6 @@ const SignUp = () => {
     username: "",
     password: "",
   });
-  const dispatch = useDispatch();
   const { signupForm } = useLogin();
   useTitle("SignUp");
   const { firstName, lastName, username, password } = formData;

@@ -5,7 +5,6 @@ const Header = () => {
   const navColor = ({ isActive, isPending }) => {
     return {
       color: isActive ? "#22d3ee" : "",
-      backgroundColor: isPending ? "#22d3ee" : "black",
     };
   };
   return (

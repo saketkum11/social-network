@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { useDispatch } from "react-redux";
 
 import { useLogin } from "../Hooks/useLogin";
 import { useTitle } from "../services";
@@ -13,8 +12,6 @@ const Login = () => {
   const { login } = useLogin();
 
   const { username, password } = formData;
-
-  const dispatch = useDispatch();
 
   const handleEvent = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
