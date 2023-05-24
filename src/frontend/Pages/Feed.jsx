@@ -5,7 +5,7 @@ import { useEffect } from "react";
 
 const Feed = () => {
   const dispatch = useDispatch();
-  const { posts, loading, error } = useSelector((store) => store.post);
+  const { posts, loading } = useSelector((store) => store.post);
   useEffect(() => {
     dispatch(getPosts());
   }, [dispatch]);

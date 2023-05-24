@@ -1,8 +1,6 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
 
 const PostWrite = () => {
-  const dispatch = useDispatch();
   const [postData, setPostData] = useState({
     content: "",
   });
