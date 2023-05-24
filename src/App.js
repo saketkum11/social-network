@@ -3,9 +3,9 @@ import { Header, MyRoutes } from "./frontend/services";
 function App() {
   return (
     <div>
+      <ToastContainer />
       <Header />
       <MyRoutes />
-      <ToastContainer />
     </div>
   );
 }

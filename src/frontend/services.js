@@ -2,7 +2,8 @@
 import { Login } from "./Pages/Login";
 import { SignUp } from "./Pages/SignUp";
 import { Feed } from "./Pages/Feed";
-
+import { Bookmarks } from "./Pages/Bookmarks";
+import { Profile } from "./Pages/Profile";
 //component
 import { Header } from "./Component/Header";
 import { PostCard } from "./Component/PostCard";
@@ -27,4 +28,6 @@ export {
   PostCard,
   PostWrite,
   Loading,
+  Bookmarks,
+  Profile,
 };

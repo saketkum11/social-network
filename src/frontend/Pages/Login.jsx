@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 import { useLogin } from "../Hooks/useLogin";
 import { useTitle } from "../services";
@@ -23,7 +23,6 @@ const Login = () => {
       username: data.username,
       password: data.password,
     });
-    login(data);
   };
 
   const handleSubmit = () => {
@@ -83,7 +82,7 @@ const Login = () => {
         <div>
           <button
             onClick={() => {
-              guestLogin({ username: "saket123", password: "saket147" });
+              guestLogin({ username: "saketkum11", password: "saket147" });
             }}
             className="w-full p-1 flex justify-center rounded-md border-gray-300  border-2 text-gray-400  items-center my-5"
           >

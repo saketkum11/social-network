@@ -3,7 +3,12 @@ import React from "react";
 const PostCard = ({ post }) => {
   const { _id, avatarURL, content, username, firstName, lastName } = post;
   return (
-    <div className="bg-slate-800  rounded-2xl p-4 text-sm">
+    <div
+      className="bg-slate-800  rounded-2xl p-4 text-sm"
+      onClick={() => {
+        console.log(username, _id);
+      }}
+    >
       <div className="flex items-center mb-4">
         <img
           className=" rounded-full overflow-hidden  w-12 h-12 mr-4"

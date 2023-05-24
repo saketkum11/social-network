@@ -1,5 +1,7 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
+import { logout } from "../Slice/authSlice";
 
 const Header = () => {
   const navColor = ({ isActive, isPending }) => {
@@ -7,10 +9,15 @@ const Header = () => {
       color: isActive ? "#22d3ee" : "",
     };
   };
+  const { token } = useSelector((store) => store.auth);
+  const dispatch = useDispatch();
+  const handleLogout = () => {
+    dispatch(logout());
+  };
   return (
     <header className="border-b-2 py-4 border-cyan-400 text-white text-xs ">
       <div className="flex justify-between items-center  w-10/12 m-auto">
-        <NavLink className="text-lg text-cyan-400 font-bold" to="/">
+        <NavLink to="/" className="text-lg text-cyan-400 font-bold">
           Social-Network
         </NavLink>
         <nav>
@@ -35,11 +42,21 @@ const Header = () => {
                 Profile
               </NavLink>
             </li>
-            <li>
-              <NavLink to="login" style={navColor}>
-                Login
-              </NavLink>
-            </li>
+            {token ? (
+              <li
+                onClick={() => {
+                  handleLogout();
+                }}
+              >
+                <NavLink style={navColor}>Logout</NavLink>
+              </li>
+            ) : (
+              <li>
+                <NavLink to="/login" style={navColor}>
+                  Login
+                </NavLink>
+              </li>
+            )}
           </ul>
         </nav>
       </div>

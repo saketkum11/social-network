@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 const userInfo = JSON.parse(localStorage.getItem("user")) || null;
 const token = localStorage.getItem("token") || " ";
@@ -7,24 +7,29 @@ const initialState = {
   user: userInfo,
   token: token,
 };
-
+export const logout = createAsyncThunk("auth/logout", () => {
+  console.log("light");
+  localStorage.removeItem("user");
+  localStorage.removeItem("token");
+});
 const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    logout: () => {
-      localStorage.clear("user");
-      localStorage.clear("token");
-    },
     authUser: (state, action) => {
-      state.user = action.payload.foundUser;
+      state.user = action.payload;
     },
     getToken: (state, action) => {
-      state.token = action.payload.encodedToken;
+      state.token = action.payload;
     },
   },
-  extraReducers: {},
+  extraReducers: (builder) => {
+    builder.addCase(logout.fulfilled, (state) => {
+      state.user = "";
+      state.token = "";
+    });
+  },
 });
 
-export const { logout, authUser, getToken } = authSlice.actions;
+export const { authUser, getToken } = authSlice.actions;
 export default authSlice.reducer;

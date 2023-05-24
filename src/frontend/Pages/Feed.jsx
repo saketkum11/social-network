@@ -11,9 +11,8 @@ const Feed = () => {
   }, [dispatch]);
   useTitle("Feed");
   const feeds = [...posts]?.reverse();
-  console.log(feeds);
   return (
-    <main className="grid grid-cols-6 gap-3 w-10/12 place-content-center m-auto mt-14">
+    <main className="grid grid-cols-6 gap-8 w-10/12 place-content-center m-auto mt-14">
       <section className="col-start-2 col-end-5 ">
         <PostWrite />
         <div className="flex justify-center mt-14">

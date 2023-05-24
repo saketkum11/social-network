@@ -1,9 +1,14 @@
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { authUser, getToken } from "../Slice/authSlice";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const useLogin = () => {
   const dispatch = useDispatch();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const redirect = location.state?.from?.pathname || "/";
+  console.log(redirect);
   const login = async ({ username, password }) => {
     try {
       const {
@@ -12,10 +17,12 @@ const useLogin = () => {
         username,
         password,
       });
+
       localStorage.setItem("user", JSON.stringify(foundUser));
       localStorage.setItem("token", encodedToken);
       dispatch(authUser(foundUser));
       dispatch(getToken(encodedToken));
+      navigate(redirect);
     } catch (error) {
       console.log(error);
     }
