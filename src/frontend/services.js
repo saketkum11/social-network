@@ -4,6 +4,7 @@ import { SignUp } from "./Pages/SignUp";
 import { Feed } from "./Pages/Feed";
 import { Bookmarks } from "./Pages/Bookmarks";
 import { Profile } from "./Pages/Profile";
+import { UserProfile } from "./Pages/UserProfile";
 //component
 import { Header } from "./Component/Header";
 import { PostCard } from "./Component/PostCard";
@@ -30,4 +31,5 @@ export {
   Loading,
   Bookmarks,
   Profile,
+  UserProfile,
 };
