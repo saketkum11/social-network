@@ -6,6 +6,7 @@ import {
   Profile,
   RequireAuth,
   SignUp,
+  UserProfile,
 } from "../services";
 
 const MyRoutes = () => {
@@ -26,6 +27,14 @@ const MyRoutes = () => {
           element={
             <RequireAuth>
               <Profile />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/profile/:username"
+          element={
+            <RequireAuth>
+              <UserProfile />
             </RequireAuth>
           }
         />

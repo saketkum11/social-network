@@ -1,30 +1,22 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { getUser } from "../Slice/userSlice";
+import React from "react";
+import { useSelector } from "react-redux";
+import { Link, useParams } from "react-router-dom";
 import { PostCard } from "../services";
 
-const Profile = () => {
-  const dispatch = useDispatch();
-
+const UserProfile = () => {
+  const { username } = useParams();
   const state = useSelector((state) => state);
   const {
     user: { allUsers },
-    auth: { user },
     post: { posts },
   } = state;
 
-  useEffect(() => {
-    dispatch(getUser());
-  }, [dispatch]);
-
   const currentProfile = allUsers?.find(
-    (profile) => profile.username === user.username
+    (profile) => profile.username === username
   );
   const currentProfilePost = [...posts]?.filter(
-    (profilePost) => profilePost.username === user.username
+    (profilePost) => profilePost.username === username
   );
-
   return (
     <div className="mt-8">
       <section className="flex flex-col items-center justify-center  text-white ">
@@ -78,4 +70,4 @@ const Profile = () => {
   );
 };
 
-export { Profile };
+export { UserProfile };

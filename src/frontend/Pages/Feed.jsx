@@ -20,7 +20,7 @@ const Feed = () => {
             <Loading />
           ) : (
             <div className="flex flex-col gap-y-3 text-white">
-              {feeds.map((post) => (
+              {feeds.reverse().map((post) => (
                 <PostCard post={post} key={post._id} />
               ))}
             </div>
