@@ -10,6 +10,7 @@ import { Header } from "./Component/Header";
 import { PostCard } from "./Component/PostCard";
 import { PostWrite } from "./Component/PostWrite";
 import { Loading } from "./Component/Loading";
+import { EditCardModal } from "./Component/EditCardModal";
 // private route
 import { MyRoutes } from "./Routes/MyRoutes";
 import { RequireAuth } from "./Routes/RequireAuth";
@@ -32,4 +33,5 @@ export {
   Bookmarks,
   Profile,
   UserProfile,
+  EditCardModal,
 };

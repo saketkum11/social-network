@@ -2,12 +2,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { Loading, PostCard, PostWrite, useTitle } from "../services";
 import { getPosts } from "../Slice/postSlice";
 import { useEffect } from "react";
+import { getUser } from "../Slice/userSlice";
 
 const Feed = () => {
   const dispatch = useDispatch();
   const { posts, loading } = useSelector((store) => store.post);
   useEffect(() => {
     dispatch(getPosts());
+    dispatch(getUser());
   }, [dispatch]);
   useTitle("Feed");
   const feeds = [...posts]?.reverse();
@@ -20,7 +22,7 @@ const Feed = () => {
             <Loading />
           ) : (
             <div className="flex flex-col gap-y-3 text-white">
-              {feeds.reverse().map((post) => (
+              {feeds.map((post) => (
                 <PostCard post={post} key={post._id} />
               ))}
             </div>
