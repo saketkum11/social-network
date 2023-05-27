@@ -88,7 +88,6 @@ export const likePost = createAsyncThunk(
           },
         }
       );
-      console.log(posts);
       return { posts };
     } catch (error) {}
   }
@@ -108,7 +107,6 @@ export const dislikePost = createAsyncThunk(
           },
         }
       );
-      console.log(posts);
       return { posts };
     } catch (error) {
       console.error(error);

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { EditCardModal, useTitle } from "../services";
 import { deletePost, dislikePost, likePost } from "../Slice/postSlice";
+import { addBookmark, removeBookmark } from "../Slice/bookmarkSlice";
 
 const PostCard = ({ post }) => {
   const { content, username } = post;
@@ -10,6 +11,7 @@ const PostCard = ({ post }) => {
   const {
     auth: { user, token },
     user: { allUsers },
+    bookmark: { bookmarks },
   } = state;
 
   const [modalFlag, setModalFlag] = useState(false);
@@ -27,19 +29,26 @@ const PostCard = ({ post }) => {
     }
   };
 
-  const handleDeletePost = () => {
-    dispatch(deletePost({ postId: post._id, token }));
+  const handleDeletePost = (id, token) => {
+    dispatch(deletePost({ postId: id, token }));
   };
 
-  const handleLike = () => {
-    dispatch(likePost({ postId: post._id, token }));
+  const handleLike = (id, token) => {
+    dispatch(likePost({ postId: id, token }));
   };
 
-  const handleDislike = () => {
-    dispatch(dislikePost({ postId: post._id, token }));
+  const handleDislike = (id, token) => {
+    dispatch(dislikePost({ postId: id, token }));
   };
 
-  const editUserPost = user.username === username;
+  const handleBookmark = (id, token) => {
+    dispatch(addBookmark({ postId: id, token }));
+  };
+
+  const handleRemoveBookmark = (id, token) => {
+    dispatch(removeBookmark({ postId: id, token }));
+  };
+  const editUserPost = user?.username === username;
 
   const cardAvatar = [...allUsers].filter(
     (profile) => profile.username === username
@@ -48,9 +57,11 @@ const PostCard = ({ post }) => {
   const postLiked = post?.likes?.likedBy?.find(
     (likePost) => likePost.username === user.username
   );
-  const postDisLiked = post?.likes.dislikedBy?.find(
-    (likePost) => likePost.username === user.username
-  );
+
+  const postBookmark = bookmarks?.find((bookmark) => bookmark === post._id);
+
+  console.log(postBookmark);
+
   return (
     <div className="bg-slate-800  rounded-2xl p-4 text-sm">
       <div className="flex items-center justify-between mb-4">
@@ -75,7 +86,7 @@ const PostCard = ({ post }) => {
             <button
               className="hover:text-cyan-600"
               onClick={() => {
-                handleDeletePost();
+                handleDeletePost(post._id, token);
               }}
             >
               delete
@@ -101,7 +112,7 @@ const PostCard = ({ post }) => {
           {postLiked ? (
             <button
               onClick={() => {
-                handleDislike();
+                handleDislike(post._id, token);
               }}
               className="text-red-400"
             >
@@ -111,7 +122,7 @@ const PostCard = ({ post }) => {
             <button
               className="text-cyan-400"
               onClick={() => {
-                handleLike();
+                handleLike(post._id, token);
               }}
             >
               Like {post.likes?.likeCount}
@@ -119,7 +130,24 @@ const PostCard = ({ post }) => {
           )}
 
           <button>Comment</button>
-          <button>Bookmark</button>
+          {postBookmark ? (
+            <button
+              onClick={() => {
+                handleRemoveBookmark(post._id, token);
+              }}
+              className="text-red-400"
+            >
+              remove Bookmark
+            </button>
+          ) : (
+            <button
+              onClick={() => {
+                handleBookmark(post._id, token);
+              }}
+            >
+              Bookmark
+            </button>
+          )}
         </div>
       </div>
     </div>

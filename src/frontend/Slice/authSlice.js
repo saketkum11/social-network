@@ -8,7 +8,6 @@ const initialState = {
   token: token,
 };
 export const logout = createAsyncThunk("auth/logout", () => {
-  console.log("light");
   localStorage.removeItem("user");
   localStorage.removeItem("token");
 });
