@@ -8,6 +8,7 @@ import {
   SignUp,
   UserProfile,
 } from "../services";
+import { SinglePost } from "../Pages/SinglePost";
 
 const MyRoutes = () => {
   return (
@@ -35,6 +36,14 @@ const MyRoutes = () => {
           element={
             <RequireAuth>
               <UserProfile />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/post/:postId"
+          element={
+            <RequireAuth>
+              <SinglePost />
             </RequireAuth>
           }
         />

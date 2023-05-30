@@ -286,19 +286,6 @@ export const posts = [
           downvotedBy: [],
         },
       },
-      {
-        _id: uuid(),
-        firstName: "Ritik",
-        lastName: "Patel",
-        username: "ritik_patel05",
-        avatarURL:
-          "https://pbs.twimg.com/profile_images/1433801904916611074/wjfFL1Js_200x200.jpg",
-        text: "Its dope",
-        votes: {
-          upvotedBy: [],
-          downvotedBy: [],
-        },
-      },
     ],
     createdAt: "01/01/2022".toString(),
     updatedAt: formatDate(),
@@ -317,19 +304,6 @@ export const posts = [
       dislikedBy: [],
     },
     comments: [
-      {
-        _id: uuid(),
-        firstName: "Ritik",
-        lastName: "Patel",
-        username: "ritik_patel05",
-        avatarURL:
-          "https://pbs.twimg.com/profile_images/1433801904916611074/wjfFL1Js_200x200.jpg",
-        text: "Its dope",
-        votes: {
-          upvotedBy: [],
-          downvotedBy: [],
-        },
-      },
       {
         _id: uuid(),
         firstName: "Lia",

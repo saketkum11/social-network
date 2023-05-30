@@ -5,12 +5,16 @@ import { Feed } from "./Pages/Feed";
 import { Bookmarks } from "./Pages/Bookmarks";
 import { Profile } from "./Pages/Profile";
 import { UserProfile } from "./Pages/UserProfile";
+import { SinglePost } from "./Pages/SinglePost";
+
 //component
 import { Header } from "./Component/Header";
 import { PostCard } from "./Component/PostCard";
 import { PostWrite } from "./Component/PostWrite";
 import { Loading } from "./Component/Loading";
 import { EditCardModal } from "./Component/EditCardModal";
+import { CardComment } from "./Component/CardComment";
+import { EditCommentModal } from "./Component/EditCommentModal";
 // private route
 import { MyRoutes } from "./Routes/MyRoutes";
 import { RequireAuth } from "./Routes/RequireAuth";
@@ -34,4 +38,6 @@ export {
   Profile,
   UserProfile,
   EditCardModal,
+  EditCommentModal,
+  CardComment,
 };

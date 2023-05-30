@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { EditCardModal, useTitle } from "../services";
 import { deletePost, dislikePost, likePost } from "../Slice/postSlice";
 import { addBookmark, removeBookmark } from "../Slice/bookmarkSlice";
+import { CardComment } from "./CardComment";
+import { getComment } from "../Slice/commentSlice";
 
 const PostCard = ({ post }) => {
+  const [comment, setComment] = useState(false);
   const { content, username } = post;
   const state = useSelector((state) => state);
   const {
@@ -48,6 +51,11 @@ const PostCard = ({ post }) => {
   const handleRemoveBookmark = (id, token) => {
     dispatch(removeBookmark({ postId: id, token }));
   };
+
+  const handleComment = () => {
+    setComment((flag) => !flag);
+  };
+
   const editUserPost = user?.username === username;
 
   const cardAvatar = [...allUsers].filter(
@@ -60,10 +68,8 @@ const PostCard = ({ post }) => {
 
   const postBookmark = bookmarks?.find((bookmark) => bookmark === post._id);
 
-  console.log(postBookmark);
-
   return (
-    <div className="bg-slate-800  rounded-2xl p-4 text-sm">
+    <div className="bg-slate-800  rounded-2xl p-4 text-sm ">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center mb-4">
           <img
@@ -128,8 +134,13 @@ const PostCard = ({ post }) => {
               Like {post.likes?.likeCount}
             </button>
           )}
-
-          <button>Comment</button>
+          <button
+            onClick={() => {
+              handleComment();
+            }}
+          >
+            Comment
+          </button>
           {postBookmark ? (
             <button
               onClick={() => {
@@ -149,6 +160,9 @@ const PostCard = ({ post }) => {
             </button>
           )}
         </div>
+      </div>
+      <div className=" text-white mt-6 ">
+        {comment && <CardComment post={post} />}
       </div>
     </div>
   );

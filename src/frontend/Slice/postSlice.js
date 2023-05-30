@@ -17,6 +17,17 @@ export const getPosts = createAsyncThunk("/post/getPosts", async () => {
     console.log(error);
   }
 });
+export const getPostById = createAsyncThunk(
+  "/post/getPostById",
+  async ({ postId }) => {
+    try {
+      const res = await axios.get(`/api/posts/${postId}`);
+      console.log(res);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+);
 export const createPost = createAsyncThunk(
   "/post/createPost",
   async ({ postData, token }) => {
@@ -38,25 +49,29 @@ export const createPost = createAsyncThunk(
     }
   }
 );
+
 export const updatePost = createAsyncThunk(
   "/post/updatePost",
-  async ({ updateContent, auth }) => {
+  async ({ postData, postId, auth }) => {
     try {
-      const res = await axios.post(
-        `/api/posts/edit/${updateContent._id}`,
-        { updateContent },
+      const {
+        data: { posts },
+      } = await axios.post(
+        `/api/posts/edit/${postId}`,
+        { postData },
         {
           headers: {
             authorization: auth,
           },
         }
       );
-      console.log(res);
+      return { posts };
     } catch (error) {
       console.error(error);
     }
   }
 );
+
 export const deletePost = createAsyncThunk(
   "/post/deletePost",
   async ({ postId, token }) => {
@@ -92,6 +107,7 @@ export const likePost = createAsyncThunk(
     } catch (error) {}
   }
 );
+
 export const dislikePost = createAsyncThunk(
   "/post/dislikePost",
   async ({ postId, token }) => {
@@ -113,8 +129,87 @@ export const dislikePost = createAsyncThunk(
     }
   }
 );
+export const addComment = createAsyncThunk(
+  "/post/addComment",
+  async ({ commentData, postId, token }) => {
+    try {
+      const {
+        data: { posts },
+      } = await axios.post(
+        `/api/comments/add/${postId}`,
+        { commentData },
+        {
+          headers: {
+            authorization: token,
+          },
+        }
+      );
+      console.log(posts);
+      return { posts };
+    } catch (error) {
+      console.error(error);
+    }
+  }
+);
+export const updateComment = createAsyncThunk(
+  "/post/updateComment",
+  async ({ commentData, postId, commentId, token }) => {
+    try {
+      const {
+        data: { posts },
+      } = await axios.post(
+        `/api/comments/edit/${postId}/${commentId}`,
+        { commentData },
+        { headers: { authorization: token } }
+      );
+      return { posts };
+    } catch (error) {
+      console.error(error);
+    }
+  }
+);
 
-const postSlice = createSlice({
+// not work ing api
+export const deleteComment = createAsyncThunk(
+  "/post/deleteComment",
+  async ({ postId, commentId, token }) => {
+    try {
+      const {
+        data: { posts },
+      } = await axios.delete(`/api/comments/delete/${postId}/${commentId}`, {
+        headers: { authorization: token },
+      });
+      console.log(posts);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+);
+
+// not work ing  this api
+export const upvoteComment = createAsyncThunk(
+  "/post/upvoteComment",
+  async ({ postId, commentId, token }) => {
+    console.log(postId, commentId, token);
+    try {
+      const res = await axios.post(
+        `/api/comments/upvote/${postId}/${commentId}`,
+        {
+          headers: {
+            authorization: token,
+          },
+        }
+      );
+      console.log(res);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+);
+
+export const follow = createAsyncThunk("/post");
+
+export const postSlice = createSlice({
   name: "post",
   initialState,
   reducers: {},
@@ -130,6 +225,9 @@ const postSlice = createSlice({
       .addCase(createPost.fulfilled, (state, { payload }) => {
         state.posts = payload.posts;
       })
+      .addCase(updatePost.fulfilled, (state, { payload }) => {
+        state.posts = payload.posts;
+      })
       .addCase(deletePost.fulfilled, (state, { payload }) => {
         state.posts = payload.posts;
       })
@@ -137,6 +235,12 @@ const postSlice = createSlice({
         state.posts = payload.posts;
       })
       .addCase(dislikePost.fulfilled, (state, { payload }) => {
+        state.posts = payload.posts;
+      })
+      .addCase(addComment.fulfilled, (state, { payload }) => {
+        state.posts = payload.posts;
+      })
+      .addCase(updateComment.fulfilled, (state, { payload }) => {
         state.posts = payload.posts;
       });
   },
