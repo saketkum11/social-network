@@ -207,8 +207,6 @@ export const upvoteComment = createAsyncThunk(
   }
 );
 
-export const follow = createAsyncThunk("/post");
-
 export const postSlice = createSlice({
   name: "post",
   initialState,

@@ -1,15 +1,25 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { PostCard } from "../services";
+import { getUser } from "../Slice/userSlice";
+import { useRef } from "react";
+import { useState } from "react";
 
 const UserProfile = () => {
   const { username } = useParams();
   const state = useSelector((state) => state);
   const {
+    auth: { user },
     user: { allUsers },
     post: { posts },
   } = state;
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getUser());
+  }, [dispatch]);
 
   const currentProfile = allUsers?.find(
     (profile) => profile.username === username
@@ -17,6 +27,7 @@ const UserProfile = () => {
   const currentProfilePost = [...posts]?.filter(
     (profilePost) => profilePost.username === username
   );
+
   return (
     <div className="mt-8">
       <section className="flex flex-col items-center justify-center  text-white ">
@@ -43,13 +54,15 @@ const UserProfile = () => {
         </div>
         <div className=" flex gap-3 mt-4 text-xs">
           <button className=" flex-1 rounded-3xl border-cyan-600 border-2 px-3 py-2">
-            post<span className="ml-1">{2}</span>
+            post<span className="ml-1">{currentProfilePost.length}</span>
           </button>
           <button className=" flex-1  rounded-3xl border-cyan-600 border-2 px-3 py-2">
-            Following<span className="ml-1">{5}</span>
+            Following
+            <span className="ml-1">{currentProfile?.following.length}</span>
           </button>
           <button className=" flex-1 rounded-3xl border-cyan-600 border-2 px-3 py-2">
-            Followers<span className="ml-1">{4}</span>
+            Followers
+            <span className="ml-1">{currentProfile?.followers.length}</span>
           </button>
         </div>
       </section>
