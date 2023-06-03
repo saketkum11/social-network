@@ -18,7 +18,6 @@ const EditProfileModal = ({ setEditModal, userProfile }) => {
     dispatch(editUser({ userData: userData, token }));
     setEditModal(false);
   };
-  console.log(profile);
   return (
     <div>
       <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>

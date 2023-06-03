@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { getUser } from "../Slice/userSlice";
 import { EditProfileModal, Follower, PostCard } from "../services";
 import { useState } from "react";
+import { getPosts } from "../Slice/postSlice";
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -19,6 +20,7 @@ const Profile = () => {
 
   useEffect(() => {
     dispatch(getUser());
+    dispatch(getPosts());
   }, [dispatch]);
 
   const currentProfile = allUsers?.find(

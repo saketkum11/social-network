@@ -86,7 +86,7 @@ export const editUser = createAsyncThunk(
         { userData },
         { headers: { authorization: token } }
       );
-      return user;
+      return { user };
     } catch (error) {
       console.error(error);
     }
@@ -136,8 +136,8 @@ export const userSlice = createSlice({
         state.allUsers = users;
         state.loading = false;
       })
-      .addCase(editUser.fulfilled, (state, { payload: { user } }) => {
-        state.allUsers = updatedUser(current(state).allUsers, user);
+      .addCase(editUser.fulfilled, (state, { payload }) => {
+        state.allUsers = updatedUser(current(state).allUsers, payload.user);
       });
   },
 });
