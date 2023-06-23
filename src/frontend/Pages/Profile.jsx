@@ -92,7 +92,9 @@ const Profile = () => {
       <section className="my-10">
         <div className=" max-w-lg w-full m-auto">
           {currentProfilePost.length === 0 ? (
-            "There no post that users has."
+            <p className="text-white text-center">
+              There is no post that user has.
+            </p>
           ) : (
             <div className="flex flex-col mt-6 text-white gap-2">
               {currentProfilePost?.reverse().map((post) => (
@@ -102,7 +104,12 @@ const Profile = () => {
           )}
         </div>
       </section>
-      {followModal && <Follower listFollowing={listFollowing} />}
+      {followModal && (
+        <Follower
+          listFollowing={listFollowing}
+          setFollowModal={setFollowModal}
+        />
+      )}
     </div>
   );
 };
