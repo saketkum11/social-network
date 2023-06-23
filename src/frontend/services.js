@@ -5,6 +5,7 @@ import { Feed } from "./Pages/Feed";
 import { Bookmarks } from "./Pages/Bookmarks";
 import { Profile } from "./Pages/Profile";
 import { UserProfile } from "./Pages/UserProfile";
+import { Explore } from "./Pages/Explore";
 
 //component
 import { Header } from "./Component/Header";
@@ -43,4 +44,5 @@ export {
   CardComment,
   Follower,
   EditProfileModal,
+  Explore,
 };
