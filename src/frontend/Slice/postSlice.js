@@ -5,6 +5,7 @@ const initialState = {
   posts: [],
   loading: false,
   error: "",
+  sort: "",
 };
 
 export const getPosts = createAsyncThunk("/post/getPosts", async () => {
@@ -176,10 +177,14 @@ export const deleteComment = createAsyncThunk(
     try {
       const {
         data: { posts },
-      } = await axios.delete(`/api/comments/delete/${postId}/${commentId}`, {
-        headers: { authorization: token },
-      });
-      console.log(posts);
+      } = await axios.post(
+        `/api/comments/delete/${postId}/${commentId}`,
+        {},
+        {
+          headers: { authorization: token },
+        }
+      );
+      return { posts };
     } catch (error) {
       console.error(error);
     }
@@ -190,17 +195,40 @@ export const deleteComment = createAsyncThunk(
 export const upvoteComment = createAsyncThunk(
   "/post/upvoteComment",
   async ({ postId, commentId, token }) => {
-    console.log(postId, commentId, token);
     try {
-      const res = await axios.post(
+      const {
+        data: { posts },
+      } = await axios.post(
         `/api/comments/upvote/${postId}/${commentId}`,
+        {},
         {
           headers: {
             authorization: token,
           },
         }
       );
-      console.log(res);
+      return { posts };
+    } catch (error) {
+      console.error(error);
+    }
+  }
+);
+export const downVoteComment = createAsyncThunk(
+  "/post/downVoteComment",
+  async ({ postId, commentId, token }) => {
+    try {
+      const {
+        data: { posts },
+      } = await axios.post(
+        `/api/comments/downvote/${postId}/${commentId}`,
+        {},
+        {
+          headers: {
+            authorization: token,
+          },
+        }
+      );
+      return { posts };
     } catch (error) {
       console.error(error);
     }
@@ -210,7 +238,11 @@ export const upvoteComment = createAsyncThunk(
 export const postSlice = createSlice({
   name: "post",
   initialState,
-  reducers: {},
+  reducers: {
+    getSortPost: (state, { payload }) => {
+      state.sort = payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getPosts.pending, (state) => {
@@ -240,8 +272,17 @@ export const postSlice = createSlice({
       })
       .addCase(updateComment.fulfilled, (state, { payload }) => {
         state.posts = payload.posts;
+      })
+      .addCase(deleteComment.fulfilled, (state, { payload }) => {
+        state.posts = payload.posts;
+      })
+      .addCase(upvoteComment.fulfilled, (state, { payload }) => {
+        state.posts = payload.posts;
+      })
+      .addCase(downVoteComment.fulfilled, (state, { payload }) => {
+        state.posts = payload.posts;
       });
   },
 });
-
+export const { getSortPost } = postSlice.actions;
 export default postSlice.reducer;
