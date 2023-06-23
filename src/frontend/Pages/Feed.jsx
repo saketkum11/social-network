@@ -12,10 +12,12 @@ const Feed = () => {
     post: { posts, loading },
     auth: { user, token },
   } = state;
+
   useEffect(() => {
     dispatch(getPosts());
     dispatch(getUser());
   }, [dispatch]);
+
   useTitle("Feed");
 
   const feeds = [...posts]?.reverse();

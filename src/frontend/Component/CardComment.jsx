@@ -1,14 +1,19 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addComment, deleteComment, upvoteComment } from "../Slice/postSlice";
+import {
+  addComment,
+  deleteComment,
+  downVoteComment,
+  upvoteComment,
+} from "../Slice/postSlice";
 import { EditCommentModal } from "./EditCommentModal";
 
 const CardComment = ({ post }) => {
   const state = useSelector((state) => state);
   const {
-    auth: { token },
+    auth: { token, user },
   } = state;
-
+  const singlePost = post;
   const comments = post.comments;
   const [commentFlag, setCommentFlag] = useState(false);
 
@@ -22,6 +27,7 @@ const CardComment = ({ post }) => {
 
   const handleComment = (id, token, comment) => {
     dispatch(addComment({ commentData: comment, postId: id, token }));
+    setComment((prev) => (prev.text = " "));
   };
 
   const handleUpdateComment = () => {
@@ -29,14 +35,14 @@ const CardComment = ({ post }) => {
   };
 
   const handleDeleteComment = (commentId, postId, token) => {
-    dispatch(deleteComment({ postId: postId, commentId: commentId, token }));
+    dispatch(deleteComment({ postId, commentId, token }));
   };
-  const handleUpVote = (pId, cId, token) => {
-    console.log("click");
-    dispatch(upvoteComment({ postId: pId, commentId: cId, token }));
-    console.log("253");
+  const handleUpVote = (postId, commentId, token) => {
+    dispatch(upvoteComment({ postId, commentId, token }));
   };
-
+  const handleDownVote = (postId, commentId, token) => {
+    dispatch(downVoteComment({ postId, commentId, token }));
+  };
   return (
     <div className="flex flex-col gap-4">
       {comments?.map((comment) => {
@@ -59,22 +65,32 @@ const CardComment = ({ post }) => {
                       handleUpVote(post._id, comment._id, token);
                     }}
                   >
-                    upvote
+                    upvote {comment.votes.upvotedBy.length}
                   </button>
-                  <button>downvote</button>
+                  <button
+                    onClick={() => {
+                      handleDownVote(post._id, comment._id, token);
+                    }}
+                  >
+                    downvote {comment.votes.downvotedBy.length}
+                  </button>
                 </div>
               </div>
-              <button
-                onClick={() =>
-                  handleDeleteComment(comment._id, post._id, token)
-                }
-              >
-                Delete
-              </button>
+              {user.username === comment.username && (
+                <button
+                  onClick={() =>
+                    handleDeleteComment(comment._id, singlePost._id, token)
+                  }
+                >
+                  Delete
+                </button>
+              )}
             </div>
             <div className="my-4 flex gap-5">
               <p>{comment?.text}</p>
-              <button onClick={() => handleUpdateComment()}>Edit</button>
+              {user.username === comment.username && (
+                <button onClick={() => handleUpdateComment()}>Edit</button>
+              )}
             </div>
             {commentFlag && (
               <EditCommentModal
