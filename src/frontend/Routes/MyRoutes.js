@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import {
   Bookmarks,
+  Explore,
   Feed,
   Login,
   Profile,
@@ -20,6 +21,14 @@ const MyRoutes = () => {
           element={
             <RequireAuth>
               <Bookmarks />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/explore"
+          element={
+            <RequireAuth>
+              <Explore />
             </RequireAuth>
           }
         />
