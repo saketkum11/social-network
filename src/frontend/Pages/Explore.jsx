@@ -22,9 +22,9 @@ const Explore = () => {
 
   const sortedPost = sortPost(posts, sort);
   return (
-    <main className="grid grid-cols-6 gap-8 w-10/12 place-content-center m-auto mt-14">
-      <section className="col-start-2 col-end-5 text-white">
-        <div className="flex gap-2">
+    <main className="lg:grid lg:grid-cols-6 gap-8 w-10/12 place-content-center m-auto mt-14">
+      <section className="max-w-lg m-auto lg:col-start-2 lg:col-end-5 text-white">
+        <div className="flex gap-2 text-xs">
           <span className="flex-1">Sort by Likes : -</span>
           <button
             className="flex-1  border-2 border-cyan-400 rounded-sm"

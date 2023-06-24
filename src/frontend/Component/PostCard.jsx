@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { EditCardModal, useTitle } from "../services";
 import { deletePost, dislikePost, likePost } from "../Slice/postSlice";
 import { addBookmark, removeBookmark } from "../Slice/bookmarkSlice";
 import { CardComment } from "./CardComment";
-import { getComment } from "../Slice/commentSlice";
 
 const PostCard = ({ post }) => {
   const [comment, setComment] = useState(false);
@@ -69,46 +68,48 @@ const PostCard = ({ post }) => {
   const postBookmark = bookmarks?.find((bookmark) => bookmark === post._id);
 
   return (
-    <div className="bg-slate-800  rounded-2xl p-4 text-sm ">
+    <div className="bg-slate-800  rounded-2xl p-4 text-xs md:text-sm  ">
       <div className="flex items-center justify-between mb-4">
-        <div className="flex items-center mb-4">
-          <img
-            className=" rounded-full overflow-hidden  w-12 h-12 mr-4"
-            src={cardAvatar?.avatarURL}
-            alt={username}
-          />
-          <span
-            className="flex gap-2 cursor-pointer hover:text-cyan-600"
-            onClick={() => {
-              handleUser(username);
-            }}
-          >
-            <span>{cardAvatar?.firstName}</span>
-            <span>{cardAvatar?.lastName}</span>
-          </span>
-        </div>
-        <div className="flex items-center gap-4">
-          {editUserPost && (
-            <button
-              className="hover:text-cyan-600"
+        <div className="gap-2 flex justify-between w-full items-center">
+          <div className="flex items-center ">
+            <img
+              className=" rounded-full overflow-hidden w-6 h-6 sm:w-12 sm:h-12 mr-4"
+              src={cardAvatar?.avatarURL}
+              alt={username}
+            />
+            <span
+              className="flex gap-2 cursor-pointer hover:text-cyan-600"
               onClick={() => {
-                handleDeletePost(post._id, token);
+                handleUser(username);
               }}
             >
-              delete
-            </button>
-          )}
+              <span>{cardAvatar?.firstName}</span>
+              <span>{cardAvatar?.lastName}</span>
+            </span>
+          </div>
+          <div className="flex items-center justify-center gap-4">
+            {editUserPost && (
+              <button
+                className="hover:text-cyan-600"
+                onClick={() => {
+                  handleDeletePost(post._id, token);
+                }}
+              >
+                delete
+              </button>
+            )}
 
-          {editUserPost && (
-            <button
-              className="hover:text-cyan-600"
-              onClick={() => {
-                setModalFlag((flag) => !flag);
-              }}
-            >
-              Edit
-            </button>
-          )}
+            {editUserPost && (
+              <button
+                className="hover:text-cyan-600"
+                onClick={() => {
+                  setModalFlag((flag) => !flag);
+                }}
+              >
+                Edit
+              </button>
+            )}
+          </div>
         </div>
       </div>
       {modalFlag && <EditCardModal setModalFlag={setModalFlag} post={post} />}

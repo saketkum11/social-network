@@ -26,19 +26,19 @@ const Feed = () => {
     dispatch(follow({ followUserId: id, token }));
   };
   const followFilter = [...allUsers].filter(
-    (currentUser) => currentUser.username !== user.username
+    (currentUser) => currentUser?.username !== user?.username
   );
 
   const currentUser = allUsers?.find(
-    (eachUser) => eachUser.username === user.username
+    (eachUser) => eachUser?.username === user?.username
   );
   const handleUnFollowing = (id, token) => {
     dispatch(unfollow({ followUserId: id, token }));
   };
 
   return (
-    <main className="grid grid-cols-6 gap-8 w-10/12 place-content-center m-auto mt-14">
-      <section className="col-start-2 col-end-5 ">
+    <main className="md:grid md:grid-cols-6 gap-8 w-10/12 place-content-center m-auto mt-14">
+      <section className="md:col-start-2 md:col-end-6 lg:col-start-2 lg:col-end-5">
         <PostWrite />
         <div className="flex justify-center mt-14">
           {loading ? (
@@ -52,7 +52,7 @@ const Feed = () => {
           )}
         </div>
       </section>
-      <section className="col-span-2 text-white text-sm ">
+      <section className="hidden lg:block lg:col-span-2 text-white text-sm ">
         <div className="border-2 border-cyan-400 rounded-2xl p-6">
           {[...followFilter]?.map((user) => {
             const currentFollowing = currentUser?.following?.find(

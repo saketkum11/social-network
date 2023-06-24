@@ -18,19 +18,22 @@ const Bookmarks = () => {
     dispatch(getBookmark({ token }));
   }, [dispatch, token]);
   useTitle("bookmark");
-  console.log(bookmarkPost);
   return (
-    <div className="max-w-lg m-auto mt-10 text-white">
-      {bookmarks.length === 0 ? (
-        <div className="text-center">
-          <span>There is no post added in bookmark {bookmarks.length}</span>
-        </div>
-      ) : (
-        [...bookmarkPost].map((bookmark) => {
-          return <PostCard post={bookmark} key={bookmark._id} />;
-        })
-      )}
-    </div>
+    <main className="md:grid md:grid-cols-6 gap-8 w-10/12 place-content-center m-auto mt-14">
+      <section className="md:col-start-2 md:col-end-6 lg:col-start-2 lg:col-end-5  text-white">
+        {bookmarks.length === 0 ? (
+          <div className="text-center">
+            <span>There is no post added in bookmark {bookmarks.length}</span>
+          </div>
+        ) : (
+          <div className="flex flex-col gap-2">
+            {[...bookmarkPost].map((bookmark) => {
+              return <PostCard post={bookmark} key={bookmark._id} />;
+            })}
+          </div>
+        )}
+      </section>
+    </main>
   );
 };
 

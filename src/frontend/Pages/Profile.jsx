@@ -38,18 +38,23 @@ const Profile = () => {
     setEditModal((flag) => !flag);
   };
   return (
-    <div className="mt-8">
+    <main className="mt-8 mx-8 text-xs">
       <section className="flex flex-col items-center justify-center  text-white ">
         <img
           src={currentProfile?.avatarURL}
           className="rounded-full w-28 h-28 object-cover my-5 "
           alt="usersImage"
         />
-        <div className="flex justify-center items-center gap-4 ml-6">
-          <span className="text-2xl text-center font-bold">
-            {currentProfile?.firstName}
-          </span>
-          <span className="text-2xl font-bold">{currentProfile?.lastName}</span>
+        <div className="flex flex-wrap justify-center items-center gap-4 ml-6">
+          <div className="flex gap-4">
+            <span className="text-2xl text-center font-bold">
+              {currentProfile?.firstName}
+            </span>
+            <span className="text-2xl font-bold">
+              {currentProfile?.lastName}
+            </span>
+          </div>
+
           <button
             onClick={() => handleEditProfile()}
             className="text-cyan-600 text-sm"
@@ -67,12 +72,14 @@ const Profile = () => {
           <span className="text-slate-400 text-center">
             @{currentProfile?.username}
           </span>
-          <p className="text-lg text-cyan-600 mt-4 ">{currentProfile?.bio}</p>
+          <p className="text-center text-lg text-cyan-600 mt-4 ">
+            {currentProfile?.bio}
+          </p>
           <Link className="hover:text-cyan-600 text-sm text-center">
             {currentProfile?.website}
           </Link>
         </div>
-        <div className=" flex gap-3 mt-4 text-xs">
+        <div className=" flex flex-wrap gap-3 mt-4 text-xs">
           <button className=" flex-1 rounded-3xl border-cyan-600 border-2 px-3 py-2">
             post<span className="ml-1">{currentProfilePost.length}</span>
           </button>
@@ -89,8 +96,8 @@ const Profile = () => {
           </button>
         </div>
       </section>
-      <section className="my-10">
-        <div className=" max-w-lg w-full m-auto">
+      <section className="my-10 md:col-start-2 md:col-end-6 lg:col-start-2 lg:col-end-5">
+        <div className=" max-w-lg w-full m-auto my-10 md:col-start-2 md:col-end-6 lg:col-start-2 lg:col-end-5">
           {currentProfilePost.length === 0 ? (
             <p className="text-white text-center">
               There is no post that user has.
@@ -110,7 +117,7 @@ const Profile = () => {
           setFollowModal={setFollowModal}
         />
       )}
-    </div>
+    </main>
   );
 };
 

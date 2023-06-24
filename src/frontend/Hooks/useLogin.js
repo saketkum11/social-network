@@ -7,8 +7,8 @@ const useLogin = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
-  const redirect = location.state?.from?.pathname || "/";
-  console.log(redirect);
+  const redirect = location.state?.from?.pathname || "/login";
+
   const login = async ({ username, password }) => {
     try {
       const {
@@ -39,7 +39,9 @@ const useLogin = () => {
       });
       localStorage.setItem("user", JSON.stringify(createdUser));
       localStorage.setItem("token", encodedToken);
-    } catch (error) {}
+    } catch (error) {
+      console.error(error);
+    }
   };
   return { login, signupForm };
 };

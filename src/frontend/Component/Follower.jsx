@@ -25,8 +25,8 @@ const Follower = ({ setFollowModal }) => {
   return (
     <div>
       <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
-      <div className=" fixed inset-0   text-white  max-w-md  m-auto rounded-lg ">
-        <div className="flex flex-col justify-center min-h-full  text-sm">
+      <div className=" fixed inset-0 text-xs   text-white sm:max-w-md  m-auto rounded-lg ">
+        <div className="flex flex-col justify-center min-h-full  mx-6  sm:text-sm">
           <div className="bg-slate-800 p-6">
             <div>
               <button
@@ -57,7 +57,7 @@ const Follower = ({ setFollowModal }) => {
                     </span>
                     <span className=" text-slate-400">{user.username}</span>
                   </div>
-                  <div className="flex ">
+                  <div className="flex text-xs">
                     {currentFollowing ? (
                       <button
                         onClick={() => {

@@ -8,8 +8,8 @@ const initialState = {
   token: token,
 };
 export const logout = createAsyncThunk("auth/logout", () => {
-  localStorage.removeItem("user");
-  localStorage.removeItem("token");
+  localStorage.clear("user");
+  localStorage.clear("token");
 });
 const authSlice = createSlice({
   name: "auth",
@@ -24,7 +24,7 @@ const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(logout.fulfilled, (state) => {
-      state.user = "";
+      state.user = null;
       state.token = "";
     });
   },

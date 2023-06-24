@@ -48,7 +48,7 @@ const Header = () => {
                   handleLogout();
                 }}
               >
-                <NavLink style={navColor}>Logout</NavLink>
+                <button>Logout</button>
               </li>
             ) : (
               <li>
