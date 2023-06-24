@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addComment, deleteComment } from "../Slice/postSlice";
 import { EditCommentModal } from "./EditCommentModal";
 import { MdDelete, MdEditDocument } from "react-icons/md";
+import { toast } from "react-hot-toast";
 
 const CardComment = ({ post }) => {
   const state = useSelector((state) => state);
@@ -22,8 +23,12 @@ const CardComment = ({ post }) => {
   };
 
   const handleComment = (id, token, comment) => {
-    dispatch(addComment({ commentData: comment, postId: id, token }));
-    setComment((prev) => (prev.text = " "));
+    if (newComment.text !== " ") {
+      dispatch(addComment({ commentData: comment, postId: id, token }));
+      setComment((prev) => (prev.text = " "));
+    } else {
+      toast.error("Error, Enter  comment");
+    }
   };
 
   const handleUpdateComment = () => {

@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
 import axios from "axios";
+import { toast } from "react-hot-toast";
 
 const initialState = {
   allUsers: [],
@@ -23,11 +24,19 @@ export const follow = createAsyncThunk(
     try {
       const {
         data: { followUser, user },
+        status,
       } = await axios.post(
         `/api/users/follow/${followUserId}`,
         {},
         { headers: { authorization: token } }
       );
+      if (status === 200) {
+        toast.custom(
+          <div className="bg-white text-black rounded-lg p-3">
+            following {followUser.username}
+          </div>
+        );
+      }
       return { followUser, user };
     } catch (error) {
       console.error(error);
@@ -40,11 +49,19 @@ export const unfollow = createAsyncThunk(
     try {
       const {
         data: { followUser, user },
+        status,
       } = await axios.post(
         `/api/users/unfollow/${followUserId}`,
         {},
         { headers: { authorization: token } }
       );
+      if (status === 200) {
+        toast.custom(
+          <div className="bg-white text-black rounded-lg p-3">
+            unFollowed {followUser.username}
+          </div>
+        );
+      }
       return { followUser, user };
     } catch (error) {
       console.error(error);
@@ -81,11 +98,17 @@ export const editUser = createAsyncThunk(
     try {
       const {
         data: { user },
+        status,
       } = await axios.post(
         "/api/users/edit",
         { userData },
         { headers: { authorization: token } }
       );
+      if (status === 201) {
+        toast.success("successfully update", {
+          icon: "😎",
+        });
+      }
       return { user };
     } catch (error) {
       console.error(error);
@@ -93,12 +116,10 @@ export const editUser = createAsyncThunk(
   }
 );
 const updatedUser = (users, updatedUser) => {
-  console.log(users, updatedUser);
   const IsUser = users?.find(
     (eachUser) => eachUser?.username === updatedUser?.username
   );
 
-  console.log(IsUser);
   if (IsUser) {
     users = [...users].map((currentUser) =>
       currentUser.username === updatedUser.username ? updatedUser : currentUser

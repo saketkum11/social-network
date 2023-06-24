@@ -1,9 +1,9 @@
-import { ToastContainer } from "react-toastify";
 import { Header, MyRoutes } from "./frontend/services";
+import { Toaster } from "react-hot-toast";
 function App() {
   return (
-    <div>
-      <ToastContainer />
+    <div className="App">
+      <Toaster position="top-right" reverseOrder={false} />
       <Header />
       <MyRoutes />
     </div>

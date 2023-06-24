@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { toast } from "react-hot-toast";
 
 const userInfo = JSON.parse(localStorage.getItem("user")) || null;
 const token = localStorage.getItem("token") || " ";
@@ -10,6 +11,7 @@ const initialState = {
 export const logout = createAsyncThunk("auth/logout", () => {
   localStorage.clear("user");
   localStorage.clear("token");
+  toast.success("logged Out");
 });
 const authSlice = createSlice({
   name: "auth",

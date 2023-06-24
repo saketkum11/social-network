@@ -51,6 +51,7 @@ const EditCommentModal = ({ comment, setCommentFlag, post }) => {
                 rows="4"
                 name="content"
                 value={editComment.text}
+                required
                 className="bg-transparent w-full outline-none border-cyan-400 border-2 p-6 rounded-2xl "
                 onChange={(e) => handleChange(e)}
               ></textarea>

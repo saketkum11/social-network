@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-
+import { toast } from "react-hot-toast";
 const initialState = {
   posts: [],
   loading: false,
@@ -35,6 +35,7 @@ export const createPost = createAsyncThunk(
     try {
       const {
         data: { posts },
+        status,
       } = await axios.post(
         "/api/posts",
         { postData },
@@ -44,6 +45,11 @@ export const createPost = createAsyncThunk(
           },
         }
       );
+      if (status === 201) {
+        toast.success("Created Post", {
+          icon: " ✔",
+        });
+      }
       return { posts };
     } catch (error) {
       console.error(error);
@@ -57,6 +63,7 @@ export const updatePost = createAsyncThunk(
     try {
       const {
         data: { posts },
+        status,
       } = await axios.post(
         `/api/posts/edit/${postId}`,
         { postData },
@@ -66,6 +73,9 @@ export const updatePost = createAsyncThunk(
           },
         }
       );
+      if (status === 201) {
+        toast.success("Updated Post");
+      }
       return { posts };
     } catch (error) {
       console.error(error);
@@ -79,13 +89,21 @@ export const deletePost = createAsyncThunk(
     try {
       const {
         data: { posts },
+        status,
       } = await axios.delete(`/api/posts/${postId}`, {
         headers: {
           authorization: token,
         },
       });
+      if (status === 201) {
+        toast.success("deleted post", {
+          icon: " 🧁",
+        });
+      }
       return { posts };
-    } catch (error) {}
+    } catch (error) {
+      console.error(error);
+    }
   }
 );
 
@@ -136,6 +154,7 @@ export const addComment = createAsyncThunk(
     try {
       const {
         data: { posts },
+        status,
       } = await axios.post(
         `/api/comments/add/${postId}`,
         { commentData },
@@ -145,7 +164,11 @@ export const addComment = createAsyncThunk(
           },
         }
       );
-      console.log(posts);
+      if (status === 201) {
+        toast.success("added new comment", {
+          icon: " ✅",
+        });
+      }
       return { posts };
     } catch (error) {
       console.error(error);
@@ -158,11 +181,17 @@ export const updateComment = createAsyncThunk(
     try {
       const {
         data: { posts },
+        status,
       } = await axios.post(
         `/api/comments/edit/${postId}/${commentId}`,
         { commentData },
         { headers: { authorization: token } }
       );
+      if (status === 201) {
+        toast.success("successfull updated comment", {
+          icon: " 🍧",
+        });
+      }
       return { posts };
     } catch (error) {
       console.error(error);
@@ -177,6 +206,7 @@ export const deleteComment = createAsyncThunk(
     try {
       const {
         data: { posts },
+        status,
       } = await axios.post(
         `/api/comments/delete/${postId}/${commentId}`,
         {},
@@ -184,6 +214,11 @@ export const deleteComment = createAsyncThunk(
           headers: { authorization: token },
         }
       );
+      if (status === 201) {
+        toast.success("deleted comment", {
+          icon: "😓",
+        });
+      }
       return { posts };
     } catch (error) {
       console.error(error);

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createPost } from "../Slice/postSlice";
+import { toast } from "react-toastify";
 
 const PostWrite = () => {
   const [postData, setPostData] = useState({
@@ -33,6 +34,7 @@ const PostWrite = () => {
         className="w-full outline-none rounded-xl  border-2 border-cyan-400 border-solid bg-slate-900 p-4"
         placeholder="write stories"
         rows="4"
+        required
         value={postData.content}
       ></textarea>
       <button

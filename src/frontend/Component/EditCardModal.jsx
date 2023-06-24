@@ -20,6 +20,7 @@ const EditCardModal = ({ setModalFlag, post }) => {
         auth: token,
       })
     );
+    setModalFlag((flag) => !flag);
   };
   return (
     <div>
