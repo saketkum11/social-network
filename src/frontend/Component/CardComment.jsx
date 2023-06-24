@@ -1,12 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  addComment,
-  deleteComment,
-  downVoteComment,
-  upvoteComment,
-} from "../Slice/postSlice";
+import { addComment, deleteComment } from "../Slice/postSlice";
 import { EditCommentModal } from "./EditCommentModal";
+import { MdDelete, MdEditDocument } from "react-icons/md";
 
 const CardComment = ({ post }) => {
   const state = useSelector((state) => state);
@@ -37,12 +33,7 @@ const CardComment = ({ post }) => {
   const handleDeleteComment = (commentId, postId, token) => {
     dispatch(deleteComment({ postId, commentId, token }));
   };
-  const handleUpVote = (postId, commentId, token) => {
-    dispatch(upvoteComment({ postId, commentId, token }));
-  };
-  const handleDownVote = (postId, commentId, token) => {
-    dispatch(downVoteComment({ postId, commentId, token }));
-  };
+
   return (
     <div className="flex flex-col gap-4">
       {comments?.map((comment) => {
@@ -59,37 +50,27 @@ const CardComment = ({ post }) => {
                   <span>{comment?.firstName}</span>
                   <span>{comment?.lastName}</span>
                 </div>
-                <div className="flex gap-2">
-                  <button
-                    onClick={() => {
-                      handleUpVote(post._id, comment._id, token);
-                    }}
-                  >
-                    upvote {comment.votes.upvotedBy.length}
-                  </button>
-                  <button
-                    onClick={() => {
-                      handleDownVote(post._id, comment._id, token);
-                    }}
-                  >
-                    downvote {comment.votes.downvotedBy.length}
-                  </button>
-                </div>
               </div>
               {user.username === comment.username && (
                 <button
+                  className="text-lg"
                   onClick={() =>
                     handleDeleteComment(comment._id, singlePost._id, token)
                   }
                 >
-                  Delete
+                  <MdDelete />
                 </button>
               )}
             </div>
             <div className="my-4 flex gap-5">
               <p>{comment?.text}</p>
               {user.username === comment.username && (
-                <button onClick={() => handleUpdateComment()}>Edit</button>
+                <button
+                  className="text-lg"
+                  onClick={() => handleUpdateComment()}
+                >
+                  <MdEditDocument />
+                </button>
               )}
             </div>
             {commentFlag && (
