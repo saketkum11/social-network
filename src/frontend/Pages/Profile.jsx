@@ -5,7 +5,7 @@ import { getUser } from "../Slice/userSlice";
 import { EditProfileModal, Follower, PostCard } from "../services";
 import { useState } from "react";
 import { getPosts } from "../Slice/postSlice";
-
+import { MdEditDocument } from "react-icons/md";
 const Profile = () => {
   const dispatch = useDispatch();
   const [listFollowing, setListFollowing] = useState([]);
@@ -57,9 +57,9 @@ const Profile = () => {
 
           <button
             onClick={() => handleEditProfile()}
-            className="text-cyan-600 text-sm"
+            className="hover:text-cyan-800 text-lg"
           >
-            Edit
+            <MdEditDocument />
           </button>
           {editModal && (
             <EditProfileModal

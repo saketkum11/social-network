@@ -7,7 +7,7 @@ const useLogin = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
-  const redirect = location.state?.from?.pathname || "/login";
+  const redirect = location.state?.from?.pathname || "/";
 
   const login = async ({ username, password }) => {
     try {

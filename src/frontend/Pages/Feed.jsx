@@ -37,7 +37,7 @@ const Feed = () => {
   };
 
   return (
-    <main className="md:grid md:grid-cols-6 gap-8 w-10/12 place-content-center m-auto mt-14">
+    <main className="md:grid md:grid-cols-6 gap-8 w-10/12 place-content-center m-auto my-14">
       <section className="md:col-start-2 md:col-end-6 lg:col-start-2 lg:col-end-5">
         <PostWrite />
         <div className="flex justify-center mt-14">

@@ -5,7 +5,11 @@ import { EditCardModal, useTitle } from "../services";
 import { deletePost, dislikePost, likePost } from "../Slice/postSlice";
 import { addBookmark, removeBookmark } from "../Slice/bookmarkSlice";
 import { CardComment } from "./CardComment";
-
+import { FcLike, FcDislike } from "react-icons/fc";
+import { TfiCommentsSmiley } from "react-icons/tfi";
+import { FaRegBookmark } from "react-icons/fa6";
+import { FaBookmark } from "react-icons/fa";
+import { MdDelete, MdEditDocument } from "react-icons/md";
 const PostCard = ({ post }) => {
   const [comment, setComment] = useState(false);
   const { content, username } = post;
@@ -90,23 +94,23 @@ const PostCard = ({ post }) => {
           <div className="flex items-center justify-center gap-4">
             {editUserPost && (
               <button
-                className="hover:text-cyan-600"
+                className="hover:text-cyan-600 text-lg"
                 onClick={() => {
                   handleDeletePost(post._id, token);
                 }}
               >
-                delete
+                <MdDelete />
               </button>
             )}
 
             {editUserPost && (
               <button
-                className="hover:text-cyan-600"
+                className="hover:text-cyan-600 text-lg"
                 onClick={() => {
                   setModalFlag((flag) => !flag);
                 }}
               >
-                Edit
+                <MdEditDocument />
               </button>
             )}
           </div>
@@ -121,43 +125,47 @@ const PostCard = ({ post }) => {
               onClick={() => {
                 handleDislike(post._id, token);
               }}
-              className="text-red-400"
+              className="text-red-400 text-md"
             >
-              disLike {post.likes?.likeCount}
+              <FcDislike />
+              {post.likes?.likeCount}
             </button>
           ) : (
             <button
-              className="text-cyan-400"
+              className="text-cyan-400 text-md"
               onClick={() => {
                 handleLike(post._id, token);
               }}
             >
-              Like {post.likes?.likeCount}
+              <FcLike />
+              {post.likes?.likeCount}
             </button>
           )}
           <button
+            className="text-2xl"
             onClick={() => {
               handleComment();
             }}
           >
-            Comment
+            <TfiCommentsSmiley />
           </button>
           {postBookmark ? (
             <button
               onClick={() => {
                 handleRemoveBookmark(post._id, token);
               }}
-              className="text-red-400"
+              className="text-lg"
             >
-              remove Bookmark
+              <FaBookmark />
             </button>
           ) : (
             <button
+              className="text-lg"
               onClick={() => {
                 handleBookmark(post._id, token);
               }}
             >
-              Bookmark
+              <FaRegBookmark />
             </button>
           )}
         </div>
