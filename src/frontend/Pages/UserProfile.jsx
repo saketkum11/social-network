@@ -1,25 +1,27 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { PostCard } from "../services";
 import { getUser } from "../Slice/userSlice";
-import { useRef } from "react";
-import { useState } from "react";
 
 const UserProfile = () => {
   const { username } = useParams();
   const state = useSelector((state) => state);
   const {
-    auth: { user },
+    auth: { token },
     user: { allUsers },
     post: { posts },
   } = state;
 
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   useEffect(() => {
-    dispatch(getUser());
-  }, [dispatch]);
+    if (token === " ") {
+      navigate("/login");
+    } else {
+      dispatch(getUser());
+    }
+  }, [dispatch, token, navigate]);
 
   const currentProfile = allUsers?.find(
     (profile) => profile.username === username

@@ -45,7 +45,7 @@ export const follow = createAsyncThunk(
 );
 export const unfollow = createAsyncThunk(
   "user/unfollow",
-  async ({ followUserId, token }) => {
+  async ({ followUserId, token }, { rejectWithValue }) => {
     try {
       const {
         data: { followUser, user },
@@ -64,7 +64,7 @@ export const unfollow = createAsyncThunk(
       }
       return { followUser, user };
     } catch (error) {
-      console.error(error);
+      rejectWithValue(error);
     }
   }
 );

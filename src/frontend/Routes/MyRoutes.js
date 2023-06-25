@@ -15,7 +15,14 @@ const MyRoutes = () => {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Feed />} />
+        <Route
+          path="/"
+          element={
+            <RequireAuth>
+              <Feed />
+            </RequireAuth>
+          }
+        />
         <Route
           path="/bookmark"
           element={

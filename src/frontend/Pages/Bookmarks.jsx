@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getBookmark } from "../Slice/bookmarkSlice";
 import { PostCard, useTitle } from "../services";
+import { useNavigate } from "react-router-dom";
 
 const Bookmarks = () => {
   const dispatch = useDispatch();
@@ -14,9 +15,15 @@ const Bookmarks = () => {
   const bookmarkPost = bookmarks?.map((postId) =>
     posts?.find((post) => post._id === postId)
   );
+  const navigate = useNavigate();
   useEffect(() => {
-    dispatch(getBookmark({ token }));
-  }, [dispatch, token]);
+    if (token === " ") {
+      navigate("/login");
+    } else {
+      dispatch(getBookmark({ token }));
+    }
+  }, [dispatch, token, navigate]);
+
   useTitle("bookmark");
   return (
     <main className="md:grid md:grid-cols-6 gap-8 w-10/12 place-content-center m-auto mt-14">

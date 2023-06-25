@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-hot-toast";
 
 const userInfo = JSON.parse(localStorage.getItem("user")) || null;
-const token = localStorage.getItem("token") || " ";
+const token = localStorage.getItem("token") || "";
 
 const initialState = {
   user: userInfo,
@@ -26,7 +26,7 @@ const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(logout.fulfilled, (state) => {
-      state.user = null;
+      state.user = "";
       state.token = "";
     });
   },

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createPost } from "../Slice/postSlice";
-import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const PostWrite = () => {
   const [postData, setPostData] = useState({
@@ -12,12 +12,17 @@ const PostWrite = () => {
     auth: { token },
   } = state;
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const handleChange = (e) => {
     setPostData({ ...postData, [e.target.name]: e.target.value });
   };
   const handleSubmitPost = () => {
-    dispatch(createPost({ postData, token }));
-    setPostData({ ...postData, content: " " });
+    if (token === " ") {
+      navigate("/login");
+    } else {
+      dispatch(createPost({ postData, token }));
+      setPostData({ ...postData, content: " " });
+    }
   };
 
   return (

@@ -5,20 +5,28 @@ import { useEffect } from "react";
 import { getPosts, getSortPost } from "../Slice/postSlice";
 import { getUser } from "../Slice/userSlice";
 import { sortPost } from "../utils/sortByLikes";
+import { useNavigate } from "react-router-dom";
 
 const Explore = () => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
   const {
+    auth: { token },
     post: { posts, sort },
   } = state;
 
   useTitle("explore");
 
+  const navigate = useNavigate();
+
   useEffect(() => {
-    dispatch(getPosts());
-    dispatch(getUser());
-  }, [dispatch]);
+    if (token === " ") {
+      navigate("/login");
+    } else {
+      dispatch(getPosts());
+      dispatch(getUser());
+    }
+  }, [dispatch, navigate, token]);
 
   const sortedPost = sortPost(posts, sort);
   return (

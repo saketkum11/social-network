@@ -10,6 +10,7 @@ import { TfiCommentsSmiley } from "react-icons/tfi";
 import { FaRegBookmark } from "react-icons/fa6";
 import { FaBookmark } from "react-icons/fa";
 import { MdDelete, MdEditDocument } from "react-icons/md";
+import { toast } from "react-hot-toast";
 const PostCard = ({ post }) => {
   const [comment, setComment] = useState(false);
   const { content, username } = post;
@@ -28,10 +29,15 @@ const PostCard = ({ post }) => {
   const dispatch = useDispatch();
 
   const handleUser = (username) => {
-    if (user.username === username) {
-      navigate("/profile");
+    if (token === " ") {
+      navigate("/login");
+      toast.error("you must login or signUp");
     } else {
-      navigate(`/profile/${username}`);
+      if (user.username === username) {
+        navigate("/profile");
+      } else {
+        navigate(`/profile/${username}`);
+      }
     }
   };
 
@@ -40,7 +46,11 @@ const PostCard = ({ post }) => {
   };
 
   const handleLike = (id, token) => {
-    dispatch(likePost({ postId: id, token }));
+    if (token === " ") {
+      navigate("/login");
+    } else {
+      dispatch(likePost({ postId: id, token }));
+    }
   };
 
   const handleDislike = (id, token) => {
@@ -48,7 +58,11 @@ const PostCard = ({ post }) => {
   };
 
   const handleBookmark = (id, token) => {
-    dispatch(addBookmark({ postId: id, token }));
+    if (token === " ") {
+      navigate("/login");
+    } else {
+      dispatch(addBookmark({ postId: id, token }));
+    }
   };
 
   const handleRemoveBookmark = (id, token) => {
@@ -56,7 +70,11 @@ const PostCard = ({ post }) => {
   };
 
   const handleComment = () => {
-    setComment((flag) => !flag);
+    if (token === " ") {
+      navigate("/login");
+    } else {
+      setComment((flag) => !flag);
+    }
   };
 
   const editUserPost = user?.username === username;

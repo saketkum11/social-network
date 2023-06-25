@@ -13,6 +13,7 @@ const Header = () => {
     };
   };
   const { token } = useSelector((store) => store.auth);
+
   const dispatch = useDispatch();
   const handleLogout = () => {
     dispatch(logout());
@@ -24,7 +25,7 @@ const Header = () => {
           Social-Network
         </NavLink>
         <nav>
-          <ul className="flex gap-x-4 text-md sm:text-lg">
+          <ul className="flex gap-x-4 text-xs sm:gap-x-8 sm:text-2xl">
             <li>
               <NavLink to="/" style={navColor}>
                 <AiFillHome />
@@ -40,11 +41,14 @@ const Header = () => {
                 <FaBookmark />
               </NavLink>
             </li>
-            <li>
-              <NavLink to="/profile" style={navColor}>
-                <RxAvatar />
-              </NavLink>
-            </li>
+            {token !== " " && (
+              <li>
+                <NavLink to="/profile" style={navColor}>
+                  <RxAvatar />
+                </NavLink>
+              </li>
+            )}
+
             {token ? (
               <li
                 onClick={() => {

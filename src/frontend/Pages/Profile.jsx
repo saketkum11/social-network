@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { getUser } from "../Slice/userSlice";
 import { EditProfileModal, Follower, PostCard } from "../services";
 import { useState } from "react";
@@ -14,14 +14,18 @@ const Profile = () => {
   const state = useSelector((state) => state);
   const {
     user: { allUsers },
-    auth: { user },
+    auth: { user, token },
     post: { posts },
   } = state;
-
+  const navigate = useNavigate();
   useEffect(() => {
-    dispatch(getUser());
-    dispatch(getPosts());
-  }, [dispatch]);
+    if (token === " ") {
+      navigate("/login");
+    } else {
+      dispatch(getUser());
+      dispatch(getPosts());
+    }
+  }, [dispatch, token, navigate]);
 
   const currentProfile = allUsers?.find(
     (profile) => profile.username === user.username

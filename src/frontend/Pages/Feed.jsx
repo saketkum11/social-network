@@ -3,6 +3,7 @@ import { Loading, PostCard, PostWrite, useTitle } from "../services";
 import { getPosts } from "../Slice/postSlice";
 import { useEffect } from "react";
 import { getUser, follow, unfollow } from "../Slice/userSlice";
+import { useNavigate } from "react-router-dom";
 
 const Feed = () => {
   const dispatch = useDispatch();
@@ -12,6 +13,7 @@ const Feed = () => {
     post: { posts, loading },
     auth: { user, token },
   } = state;
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getPosts());
@@ -23,7 +25,11 @@ const Feed = () => {
   const feeds = [...posts]?.reverse();
 
   const handleFollowing = (id, token) => {
-    dispatch(follow({ followUserId: id, token }));
+    if (token === " ") {
+      navigate("/login");
+    } else {
+      dispatch(follow({ followUserId: id, token }));
+    }
   };
   const followFilter = [...allUsers].filter(
     (currentUser) => currentUser?.username !== user?.username
