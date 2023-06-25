@@ -25,7 +25,9 @@ const CardComment = ({ post }) => {
   const handleComment = (id, token, comment) => {
     if (newComment.text !== " ") {
       dispatch(addComment({ commentData: comment, postId: id, token }));
-      setComment((prev) => (prev.text = " "));
+      setComment((prev) => {
+        return { ...prev, text: " " };
+      });
     } else {
       toast.error("Error, Enter  comment");
     }

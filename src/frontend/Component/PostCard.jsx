@@ -6,11 +6,11 @@ import { deletePost, dislikePost, likePost } from "../Slice/postSlice";
 import { addBookmark, removeBookmark } from "../Slice/bookmarkSlice";
 import { CardComment } from "./CardComment";
 import { FcLike, FcDislike } from "react-icons/fc";
-import { TfiCommentsSmiley } from "react-icons/tfi";
 import { FaRegBookmark } from "react-icons/fa6";
 import { FaBookmark } from "react-icons/fa";
 import { MdDelete, MdEditDocument } from "react-icons/md";
 import { toast } from "react-hot-toast";
+import { BiComment, BiSolidComment } from "react-icons/bi";
 const PostCard = ({ post }) => {
   const [comment, setComment] = useState(false);
   const { content, username } = post;
@@ -159,14 +159,26 @@ const PostCard = ({ post }) => {
               {post.likes?.likeCount}
             </button>
           )}
-          <button
-            className="text-2xl"
-            onClick={() => {
-              handleComment();
-            }}
-          >
-            <TfiCommentsSmiley />
-          </button>
+          {comment ? (
+            <button
+              className="text-2xl"
+              onClick={() => {
+                handleComment();
+              }}
+            >
+              <BiSolidComment />
+            </button>
+          ) : (
+            <button
+              className="text-2xl"
+              onClick={() => {
+                handleComment();
+              }}
+            >
+              <BiComment />
+            </button>
+          )}
+
           {postBookmark ? (
             <button
               onClick={() => {
