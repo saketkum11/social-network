@@ -2,7 +2,10 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { logout } from "../Slice/authSlice";
-
+import { MdLogout, MdExplore, MdLogin } from "react-icons/md";
+import { RxAvatar } from "react-icons/rx";
+import { FaBookmark } from "react-icons/fa";
+import { AiFillHome } from "react-icons/ai";
 const Header = () => {
   const navColor = ({ isActive, isPending }) => {
     return {
@@ -10,6 +13,7 @@ const Header = () => {
     };
   };
   const { token } = useSelector((store) => store.auth);
+
   const dispatch = useDispatch();
   const handleLogout = () => {
     dispatch(logout());
@@ -17,43 +21,48 @@ const Header = () => {
   return (
     <header className="border-b-2 py-4 border-cyan-400 text-white text-xs ">
       <div className="flex justify-between items-center  w-10/12 m-auto">
-        <NavLink to="/" className="text-lg text-cyan-400 font-bold">
+        <NavLink to="/" className="text-md sm:text-lg text-cyan-400 font-bold">
           Social-Network
         </NavLink>
         <nav>
-          <ul className="flex gap-x-4 ">
+          <ul className="flex gap-x-4 text-xs sm:gap-x-8 sm:text-2xl">
             <li>
               <NavLink to="/" style={navColor}>
-                Home
+                <AiFillHome />
               </NavLink>
             </li>
             <li>
               <NavLink to="/explore" style={navColor}>
-                Explore
+                <MdExplore />
               </NavLink>
             </li>
             <li>
               <NavLink to="/bookmark" style={navColor}>
-                Bookmarks
+                <FaBookmark />
               </NavLink>
             </li>
-            <li>
-              <NavLink to="/profile" style={navColor}>
-                Profile
-              </NavLink>
-            </li>
+            {token !== " " && (
+              <li>
+                <NavLink to="/profile" style={navColor}>
+                  <RxAvatar />
+                </NavLink>
+              </li>
+            )}
+
             {token ? (
               <li
                 onClick={() => {
                   handleLogout();
                 }}
               >
-                <NavLink style={navColor}>Logout</NavLink>
+                <button>
+                  <MdLogout />
+                </button>
               </li>
             ) : (
               <li>
                 <NavLink to="/login" style={navColor}>
-                  Login
+                  <MdLogin />
                 </NavLink>
               </li>
             )}

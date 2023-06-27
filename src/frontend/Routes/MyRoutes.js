@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import {
   Bookmarks,
+  Explore,
   Feed,
   Login,
   Profile,
@@ -8,17 +9,33 @@ import {
   SignUp,
   UserProfile,
 } from "../services";
+import { SinglePost } from "../Pages/SinglePost";
 
 const MyRoutes = () => {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Feed />} />
+        <Route
+          path="/"
+          element={
+            <RequireAuth>
+              <Feed />
+            </RequireAuth>
+          }
+        />
         <Route
           path="/bookmark"
           element={
             <RequireAuth>
               <Bookmarks />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/explore"
+          element={
+            <RequireAuth>
+              <Explore />
             </RequireAuth>
           }
         />
@@ -35,6 +52,14 @@ const MyRoutes = () => {
           element={
             <RequireAuth>
               <UserProfile />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/post/:postId"
+          element={
+            <RequireAuth>
+              <SinglePost />
             </RequireAuth>
           }
         />
